@@ -158,6 +158,7 @@ class Menu_Db extends \LbMenu\Menu
 		);
 
 		$key = ($child->depth() >= 2) ? 'sub_menu_item_inner' : 'menu_item_inner';
+		($child->has_children()) and $key .= '_with_children';
 		$key = $this->getThemeDepth($key, $child->depth(), $theme);
 
 		return str_replace($arrKeys, $arrValues, $theme[$key]);

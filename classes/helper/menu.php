@@ -21,7 +21,6 @@ class Helper_Menu
         $themesConf = \Config::get('menu.themes');
         $themeFallback = \Config::get('menu.theme_fallback');
         $themeDefault = \Config::get('menu.theme_default');
-
         // If no override theme
         if ($themeOverride === null)
         {

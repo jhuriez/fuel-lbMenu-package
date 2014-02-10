@@ -8,7 +8,7 @@
  * @author     Julien Huriez
  * @license    MIT License
  * @copyright  2013 Julien Huriez
- * @link   https://github.com/jhuriez/fuel-lbMenu
+ * @link   https://github.com/jhuriez/fuel-lbMenu-package
  */
 Autoloader::add_core_namespace('LbMenu');
 

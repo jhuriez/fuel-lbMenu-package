@@ -102,8 +102,8 @@ class Menu_Db extends \LbMenu\Menu
 		);
 
 		$key = ($child->depth() >= 2) ? 'sub_menu' : 'menu';
-		$key = $this->getThemeDepth($key, $child->depth(), $theme);
-
+		$depthKey = '_depth-'.$child->depth();
+ 		$key = $this->searchThemeKey($key, $theme, $depthKey);
 		return str_replace($arrKeys, $arrValues, $theme[$key]);
 	}
 
@@ -158,8 +158,9 @@ class Menu_Db extends \LbMenu\Menu
 		);
 
 		$key = ($child->depth() >= 2) ? 'sub_menu_item_inner' : 'menu_item_inner';
-		($child->has_children()) and $key .= '_with_children';
-		$key = $this->getThemeDepth($key, $child->depth(), $theme);
+		$childrenKey = ($child->has_children()) ? '_with_children' : '';
+		$depthKey = '_depth-'.$child->depth();
+ 		$key = $this->searchThemeKey($key, $theme, $depthKey, $childrenKey);
 
 		return str_replace($arrKeys, $arrValues, $theme[$key]);
 	}
@@ -193,21 +194,30 @@ class Menu_Db extends \LbMenu\Menu
 		);
 
 		$key = ($child->depth() >= 2) ? 'sub_menu_item' : 'menu_item';
-		$key = $this->getThemeDepth($key, $child->depth(), $theme);
-
+		$depthKey = '_depth-'.$child->depth();
+ 		$key = $this->searchThemeKey($key, $theme, $depthKey);
 		return str_replace($arrKeys, $arrValues, $theme[$key]);
 	}
 
 	/**
-	 * Return the theme depth key
-	 * @param  string $key   [description]
-	 * @param  int $depth [description]
-	 * @param  array $theme [description]
-	 * @return string        [description]
+	 * Check if the key exist.
+	 * In priority : [key]_with_children_depth-[n]
+	 * Next 	   : [key]_depth-[n]
+	 * Next        : [key]_with_children
+	 * And finally : [key]
+	 * 
+	 * @param  string $key         
+	 * @param  array  $theme       
+	 * @param  string $depthKey    
+	 * @param  string $childrenKey 
+	 * @return string              
 	 */
-	public function getThemeDepth($key, $depth, $theme)
+	public function searchThemeKey($key, $theme, $depthKey = '', $childrenKey = '')
 	{
-		return (isset($theme[$key.'_depth-'.$depth])) ? $key.'_depth-'.$depth : $key;
+		if (isset($theme[$key.$childrenKey.$depthKey])) return $key.$childrenKey.$depthKey;
+		else if (isset($theme[$key.$depthKey])) return $key.$depthKey;
+		else if (isset($theme[$key.$childrenKey])) return $key.$childrenKey;
+		else return $key;
 	}
 
 	/**

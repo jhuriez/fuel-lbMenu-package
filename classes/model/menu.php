@@ -39,6 +39,12 @@ class Model_Menu extends \Orm\Model_Nestedset
             'default' => false,
             'form' => array('type' => 'select', 'value' => '0', 'options' => array('0' => 'menu_model_menu.no', '1' => 'menu_model_menu.yes')),
         ),
+        'is_part' => array(
+            'label' => 'menu_model_menu.is_part',
+            'null' => false,
+            'default' => false,
+            'form' => array('type' => 'select', 'value' => '0', 'options' => array('0' => 'menu_model_menu.no', '1' => 'menu_model_menu.yes')),
+        ),
         'theme' => array(
             'label' => 'menu_model_menu.theme',
             'form' => array('type' => 'select'),

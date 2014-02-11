@@ -146,7 +146,6 @@ class Menu_Db extends \LbMenu\Menu
 			'{text}', 
 			'{title}', 
 			'{depth}',
-			'{active}'
 		);
 
 		$arrValues = array(
@@ -154,7 +153,6 @@ class Menu_Db extends \LbMenu\Menu
 			$menuLang->text,
 			$menuLang->title,
 			$child->depth(),
-			$this->isActive($child),
 		);
 
 		$key = ($child->depth() >= 2) ? 'sub_menu_item_inner' : 'menu_item_inner';
@@ -266,7 +264,13 @@ class Menu_Db extends \LbMenu\Menu
 	public function isActive($child)
 	{
 		$link = str_replace(\Uri::base(), '', $this->generateLink($child));
+		if (empty($link)) return '';
+
+		$pattern = $child->is_part ? "|".$link."(.*?)$|i" : "|".$link."$|i";
+
 		if ('/'.\Uri::string() == $link || \Uri::string() == $link) return 'active';
+		else if (preg_match($pattern, '/'.\Uri::string()) !== 0 || preg_match($pattern, \Uri::string()) !== 0) return 'has_active';
+
 		return '';
 	}
 }

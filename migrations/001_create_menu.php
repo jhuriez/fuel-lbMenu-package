@@ -12,6 +12,7 @@ class Create_menu
 			'link' => array('constraint' => 255, 'type' => 'varchar', 'null' => true),
 			'active' => array('type' => 'boolean'),
 			'is_blank' => array('type' => 'boolean'),
+			'is_part' => array('type' => 'boolean'),
 			'theme' => array('constraint' => 255, 'type' => 'varchar', 'null' => true),
 			'use_router' => array('type' => 'boolean'),
 			'named_params' => array('constraint' => 255, 'type' => 'varchar', 'null' => true),

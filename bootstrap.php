@@ -18,6 +18,7 @@ Autoloader::add_classes(array(
     'LbMenu\\Helper_Menu' => __DIR__ . '/classes/helper/menu.php',
     'LbMenu\\Model_Menu' => __DIR__ . '/classes/model/menu.php',
     'LbMenu\\Model_Lang' => __DIR__ . '/classes/model/lang.php',
+    'LbMenu\\Model_Attribute' => __DIR__ . '/classes/model/attribute.php',
 ));
 
 // Load config

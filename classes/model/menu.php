@@ -78,6 +78,20 @@ class Model_Menu extends \Orm\Model_Nestedset
             'cascade_save' => true,
             'cascade_delete' => true,
         ),
+        'menu_attributes' => array(
+            'key_from' => 'id',   
+            'model_to' => 'LbMenu\Model_Attribute',  
+            'key_to' => 'id_menu',
+            'cascade_save' => true, 
+            'cascade_delete' => true,
+        ),
+    );
+
+    protected static $_eav = array(
+        'menu_attributes' => array(   
+            'attribute' => 'key',
+            'value' => 'value',  
+        )
     );
 
     public static function _init()

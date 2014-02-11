@@ -24,54 +24,56 @@ class Helper_Menu
         // If no override theme
         if ($themeOverride === null)
         {
-            // If the menu is root, try to get his theme
-            if ($menu->is_root())
+            if (!$menu->is_new())
             {
-                $theme = (!empty($menu->theme)) ? $menu->theme : $themeFallback;
+                // Get the theme of the root
+                $menu = ($menu->is_root()) ? $menu : $menu->root()->get_one();
+                $theme = (!empty($menu->theme) && isset($themesConf[$menu->theme])) ? $menu->theme : $themeFallback;
             }
-            // Else try to get the default or fallback theme
             else
             {
-                if (isset($themesConfig[$themeDefault]))
+                // New menu : Get default theme
+               if (isset($themesConf[$themeDefault]))
                 {
                     $theme = $themeDefault;
                 }
-                else if (!isset($themesConfig[$themeFallback]))
+                else if (!isset($themesConf[$themeFallback]))
                 {
-                    throw new Exception("No menu theme found.");
+                    throw new \Exception("No menu theme found.");
                 }
                 else
                 {
                     $theme = $themeFallback;
                 }
             }
-
-            return $themesConf[$theme];
         }
-
         // If override by theme name
-        if (is_string($themeOverride))
+        else if (is_string($themeOverride))
         {
-            if (isset($themesConfig[$themeOverride]))
+            if (isset($themesConf[$themeOverride]))
             {
                 $theme = $themeOverride;
             }
-            else if (!isset($themesConfig[$themeFallback]))
+            else if (!isset($themesConf[$themeFallback]))
             {
-                throw new Exception("No menu theme found.");
+                throw new \Exception("No menu theme found.");
             }
             else
             {
                 $theme = $themeFallback;
             }
-
-            return $themesConf[$theme];
         }
         // If override by theme array
-        if (is_array($themeOverride))
+        else if (is_array($themeOverride))
         {
+            !isset($themeOverride['name']) and $themeOverride['name'] = 'Theme override';
             return $themeOverride;
         }
+
+
+        $themesConf[$theme]['name'] = $theme;
+        
+        return $themesConf[$theme];
     }
 
 }

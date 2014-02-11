@@ -70,7 +70,7 @@ class Menu_Db extends \LbMenu\Menu
                 $submenu = ($child->has_children()) ? $this->buildMenu($child, $theme, false) : '';
 
                 // Construct Submenu
-            	$output .= $this->themeReplaceSubmenu($child, $menuLang, $item, $submenu);
+            	$output .= $this->themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu);
             }
         }
         else
@@ -104,7 +104,7 @@ class Menu_Db extends \LbMenu\Menu
 		$key = ($child->depth() >= 2) ? 'sub_menu' : 'menu';
 		$depthKey = '_depth-'.$child->depth();
  		$key = $this->searchThemeKey($key, $theme, $depthKey);
-		return str_replace($arrKeys, $arrValues, $theme[$key]);
+		return $this->themeReplaceEav($child, $theme, str_replace($arrKeys, $arrValues, $theme[$key]));
 	}
 
 	/**
@@ -115,7 +115,7 @@ class Menu_Db extends \LbMenu\Menu
 	 * @param  string $submenu  
 	 * @return string           
 	 */
-	public function themeReplaceSubmenu($child, $menuLang, $item, $submenu)
+	public function themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu)
 	{
 		$arrKeys = array(
 			'{submenu}',
@@ -127,7 +127,7 @@ class Menu_Db extends \LbMenu\Menu
 			$child->depth(),
 		);
 
-		return str_replace($arrKeys, $arrValues, $item);
+		return $this->themeReplaceEav($child, $theme, str_replace($arrKeys, $arrValues, $item));
 	}
 
 	/**
@@ -162,7 +162,7 @@ class Menu_Db extends \LbMenu\Menu
 		$depthKey = '_depth-'.$child->depth();
  		$key = $this->searchThemeKey($key, $theme, $depthKey, $childrenKey);
 
-		return str_replace($arrKeys, $arrValues, $theme[$key]);
+		return $this->themeReplaceEav($child, $theme, str_replace($arrKeys, $arrValues, $theme[$key]));
 	}
 
 	/**
@@ -196,7 +196,20 @@ class Menu_Db extends \LbMenu\Menu
 		$key = ($child->depth() >= 2) ? 'sub_menu_item' : 'menu_item';
 		$depthKey = '_depth-'.$child->depth();
  		$key = $this->searchThemeKey($key, $theme, $depthKey);
-		return str_replace($arrKeys, $arrValues, $theme[$key]);
+		return $this->themeReplaceEav($child, $theme, str_replace($arrKeys, $arrValues, $theme[$key]));
+	}
+
+	public function themeReplaceEav($child, $theme, $content)
+	{
+		$arrKeys = array();
+		$arrValues = array();
+		foreach((array)$theme['attributes'] as $attribute)
+		{
+			$arrKeys[] = '{'.$attribute['key'].'}';
+			$arrValues[] = (isset($child->{$attribute['key']}) ? $child->{$attribute['key']} : '');
+		}
+
+		return str_replace($arrKeys, $arrValues, $content);		
 	}
 
 	/**

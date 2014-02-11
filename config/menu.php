@@ -25,13 +25,14 @@ return array(
         						</ul>
     						</div>
 						</nav>',
+						
 	        'menu_item' => "<li>{item}\n{submenu}</li>\n",
-	        'menu_item_inner' => '<a href="{link}" title="{title}">{text}</a>',
-	        'menu_item_inner_with_children' => '<a href="{link}" title="{title}">{text} <span class="fa arrow"></span></a>',
+	        'menu_item_inner' => '<a href="{link}" title="{title}"><i class="fa {b-icon} fa-fw"></i> {text}</a>',
+	        'menu_item_inner_with_children' => '<a href="{link}" title="{title}"><i class="fa {b-icon} fa-fw"></i> {text} <span class="fa arrow"></span></a>',
 
 	        'sub_menu' => '<ul class="nav">{menu}</ul>',
 	        'sub_menu_item' => "<li>{item}\n{submenu}</li>\n",
-	        'sub_menu_item_inner' => '<a href="{link}" title="{title}">{text}</a>',
+	        'sub_menu_item_inner' => '<a href="{link}" title="{title}"><i class="fa {b-icon} fa-fw"></i> {text}</a>',
 	        'sub_menu_item_inner_with_children' => '<a href="{link}" title="{title}"><i class="fa {b-icon} fa-fw"></i> {text} <span class="fa arrow"></span></a>',
 
 	        'sub_menu_depth-2' => '<ul class="nav nav-second-level">{menu}</ul>',

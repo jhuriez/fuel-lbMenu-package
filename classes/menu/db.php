@@ -103,7 +103,7 @@ class Menu_Db extends \LbMenu\Menu
 
 		$key = ($child->depth() >= 2) ? 'sub_menu' : 'menu';
 		$depthKey = '_depth-'.$child->depth();
- 		$key = $this->searchThemeKey($key, $theme, $depthKey);
+ 		$key = $this->searchThemeKey($child->slug, $key, $theme, $depthKey);
 		return $this->themeReplaceEav($child, $theme, str_replace($arrKeys, $arrValues, $theme[$key]));
 	}
 
@@ -160,7 +160,7 @@ class Menu_Db extends \LbMenu\Menu
 		$key = ($child->depth() >= 2) ? 'sub_menu_item_inner' : 'menu_item_inner';
 		$childrenKey = ($child->has_children()) ? '_with_children' : '';
 		$depthKey = '_depth-'.$child->depth();
- 		$key = $this->searchThemeKey($key, $theme, $depthKey, $childrenKey);
+ 		$key = $this->searchThemeKey($child->slug, $key, $theme, $depthKey, $childrenKey);
 
 		return $this->themeReplaceEav($child, $theme, str_replace($arrKeys, $arrValues, $theme[$key]));
 	}
@@ -195,7 +195,7 @@ class Menu_Db extends \LbMenu\Menu
 
 		$key = ($child->depth() >= 2) ? 'sub_menu_item' : 'menu_item';
 		$depthKey = '_depth-'.$child->depth();
- 		$key = $this->searchThemeKey($key, $theme, $depthKey);
+ 		$key = $this->searchThemeKey($child->slug, $key, $theme, $depthKey);
 		return $this->themeReplaceEav($child, $theme, str_replace($arrKeys, $arrValues, $theme[$key]));
 	}
 
@@ -225,11 +225,20 @@ class Menu_Db extends \LbMenu\Menu
 	 * @param  string $childrenKey 
 	 * @return string              
 	 */
-	public function searchThemeKey($key, $theme, $depthKey = '', $childrenKey = '')
+	public function searchThemeKey($slug, $key, $theme, $depthKey = '', $childrenKey = '')
 	{
-		if (isset($theme[$key.$childrenKey.$depthKey])) return $key.$childrenKey.$depthKey;
+		$slug .= '|';
+
+		if (isset($theme[$slug.$key.$childrenKey.$depthKey])) return $slug.$key.$childrenKey.$depthKey;
+		else if (isset($theme[$key.$childrenKey.$depthKey])) return $key.$childrenKey.$depthKey;
+
+		else if (isset($theme[$slug.$key.$depthKey])) return $slug.$key.$depthKey;
 		else if (isset($theme[$key.$depthKey])) return $key.$depthKey;
+
+		else if (isset($theme[$slug.$key.$childrenKey])) return $slug.$key.$childrenKey;
 		else if (isset($theme[$key.$childrenKey])) return $key.$childrenKey;
+
+		else if (isset($theme[$slug.$key])) return $slug.$key;
 		else return $key;
 	}
 

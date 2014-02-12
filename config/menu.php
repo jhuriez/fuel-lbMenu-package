@@ -22,7 +22,7 @@ return array(
     						</div>
 						</nav>',
 						
-	        'menu_item' => '<li class="{active}">{item} {submenu}</li>',
+	        'menu_item' => '<li class="{active} {item-class}">{item} {submenu}</li>',
 	        'menu_item_inner' => '<a href="{link}" title="{title}"><i class="fa {b-icon} fa-fw"></i> {text}</a>',
 	        'menu_item_inner_with_children' => '<a href="{link}" title="{title}"><i class="fa {b-icon} fa-fw"></i> {text} <span class="fa arrow"></span></a>',
 
@@ -39,6 +39,11 @@ return array(
         			'key' => 'b-icon',
         			'label' => 'FontAwesome icon',
         			'default' => 'fa-bars'
+        		),
+	        	array(
+        			'key' => 'item-class',
+        			'label' => 'Classes de l\'item',
+        			'default' => 'item'
         		),
         	),
 		),

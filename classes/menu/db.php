@@ -288,7 +288,7 @@ class Menu_Db extends \LbMenu\Menu
 		if (!$child['use_router']) return $child['link'];
 
 		// Use router
-		$params = unserialize(base64_decode($child['named_params']));
+		$params = $child['named_params'];
 		$link = \Router::get($child['link'], $params);
 		return $link;		
 	}

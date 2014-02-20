@@ -19,6 +19,7 @@ Autoloader::add_classes(array(
     'LbMenu\\Model_Menu' => __DIR__ . '/classes/model/menu.php',
     'LbMenu\\Model_Lang' => __DIR__ . '/classes/model/lang.php',
     'LbMenu\\Model_Attribute' => __DIR__ . '/classes/model/attribute.php',
+    'LbMenu\\Observer_Serialize' => __DIR__ . '/classes/observer/serialize.php',
 ));
 
 // Load config

@@ -223,13 +223,54 @@ class Menu
         }
     }
 
+    public function dump_tree()
+    {
+        $roots = \LbMenu\Model_Menu::forge()->roots()->get();
+        \Cli::write('');
+        \Cli::write('  Dump tree ');
+        \Cli::write('');
+        foreach($roots as $root)
+        {
+            $this->showMenuTree($root->dump_tree());
+        }
+    }
+    protected function showMenuTree($menus)
+    {
+        $res = array();
+        foreach ($menus as $k => $menu)
+        {
+            $menuObj = \LbMenu\Model_Menu::find($menu['id']);
+            $menuLang = \LbMenu\Helper_Menu::getLang($menuObj);
+
+            // Write seperator
+            $sep = '  ';
+            $sep .= $menuObj->is_root() ? '|-' : '|';
+            for($i=0;$i<$menuObj->depth()-1;$i++)
+            {
+                $sep .= '  |';
+            }
+            $sep .= $menuObj->is_root() ? '' : '  |-';
+
+            \Cli::write($sep . '(' . $menuObj->id . ') ' . $menuLang->text);
+
+            if (isset($menu['children']) && ! empty($menu['children']))
+            {
+                $this->showMenuTree($menu['children']);
+            }
+
+            $res[] = $menu;
+        }
+
+        return $res;
+    }
+
     // Some helping functions for tasks
      
     /**
      * Configure the menu parent
      * @return int
      */
-    public function configureParentId()
+    protected function configureParentId()
     {
         if (\Cli::option('parent_id', false))
         {
@@ -255,7 +296,7 @@ class Menu
      * Configure the EAV
      * @return array
      */
-    public function configureEav()
+    protected function configureEav()
     {
         $eavArr = array();
         foreach(explode('|', \Cli::option('eav', '')) as $eav)
@@ -273,7 +314,7 @@ class Menu
      * Configure the Named Params for route
      * @return array
      */
-    public function configureNamedParams()
+    protected function configureNamedParams()
     {
         if (\Cli::option('named_params') === null) return false;
 

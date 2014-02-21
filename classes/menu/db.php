@@ -228,6 +228,7 @@ class Menu_Db extends \LbMenu\Menu
 		}
 
 		$eavs = $child['menu_attributes'];
+		!isset($theme['attributes']) and $theme['attributes'] = array();
 		foreach((array)$theme['attributes'] as $attribute)
 		{
 			$arrKeys[] = '{'.$attribute['key'].'}';

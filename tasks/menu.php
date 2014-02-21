@@ -223,6 +223,12 @@ class Menu
         }
     }
 
+    /**
+     * Show the dump tree in console
+     *
+     * Cmd : oil refine menu:dump_tree --packages=lbMenu
+     * @return [type] [description]
+     */
     public function dump_tree()
     {
         $roots = \LbMenu\Model_Menu::forge()->roots()->get();

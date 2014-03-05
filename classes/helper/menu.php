@@ -121,12 +121,14 @@ class Helper_Menu
                 }
                 $menu['menu_langs'] = $langs;
             }
-
             // Search for menu lang
             foreach((array)$menu['menu_langs'] as $menuLang)
             {
                 if ($menuLang['language'] == $language) return $menuLang;
             }
+
+            // Language not found, return the current
+            return array_shift($menu['menu_langs']);
         }
         else
         {

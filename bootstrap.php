@@ -25,6 +25,6 @@ Autoloader::add_classes(array(
 ));
 
 // Load config
-\Config::load('lbMenu::menu', true);
+\Config::load('menu', true);
 
 /* End of file bootstrap.php */

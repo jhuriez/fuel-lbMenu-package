@@ -18,6 +18,6 @@ This package is flexible, you can use Array driver or Db driver (with orm nested
 7. [Custom Theme](https://github.com/jhuriez/fuel-lbMenu-package/wiki/Custom-Theme)
 8. [Helper](https://github.com/jhuriez/fuel-lbMenu-package/wiki/Helper)
 9. [Tasks](https://github.com/jhuriez/fuel-lbMenu-package/wiki/Tasks)
-10. Administration module
+10. [Administration module](https://github.com/jhuriez/fuel-lbMenu-package/wiki/Administration-module)
 11. [Features planned](http://github.com/jhuriez/fuel-lbMenu-package/wiki/Features-planned)
 12. Bug / Error

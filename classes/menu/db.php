@@ -30,6 +30,16 @@ class Menu_Db extends \LbMenu\Menu
 		return $menu;
 	}
 
+    /**
+     * Dump the menu as array with language data
+     * @return array            
+     */
+    public function dump()
+    {
+        $menuArr = current($this->menu->dump_tree());
+        $menuArr = \LbMenu\Helper_Menu::recursiveGetLang($menuArr);
+        return $menuArr;
+    }
 
 	/**
 	 * Render the Menu
@@ -38,6 +48,7 @@ class Menu_Db extends \LbMenu\Menu
 	 */
 	public function render($theme = null)
 	{
+		\LbMenu\Helper_Menu::dumpMenu($this->menu);
 		$theme = \LbMenu\Helper_Menu::getTheme($this->menu);
         $html = $this->buildMenu(current($this->menu->dump_tree()), $theme);
         echo $html;

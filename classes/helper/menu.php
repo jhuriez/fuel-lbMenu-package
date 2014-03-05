@@ -150,6 +150,30 @@ class Helper_Menu
         }
     }
 
+    public static function recursiveGetLang($menuArr)
+    {
+        // Get language data
+        $menuLang = self::getLang($menuArr);
+
+        // Unset useless data
+        unset($menuLang['created_at']);
+        unset($menuLang['updated_at']);
+        unset($menuLang['id']);
+        unset($menuLang['id_menu']);
+        unset($menuArr['menu_langs']);
+
+        // Merge lang
+        $menuArr = array_merge($menuArr, $menuLang);
+        
+        // Do the same for children
+        foreach((array)$menuArr['children'] as $k => $child)
+        {
+            $menuArr['children'][$k] = self::recursiveGetLang($child);
+        }
+
+        return $menuArr;
+    }
+
     /**
      * ALL helper functions for manage the Menu model
      */

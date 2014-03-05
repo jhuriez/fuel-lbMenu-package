@@ -199,8 +199,9 @@ class Menu_Db extends \LbMenu\Menu
 		);
 
 		$key = ($depth >= 2) ? 'sub_menu_item' : 'menu_item';
+		$childrenKey = (!empty($child['children'])) ? '_with_children' : '';
 		$depthKey = '_depth-'.$depth;
- 		$key = $this->searchThemeKey($child['slug'], $key, $theme, $depthKey);
+ 		$key = $this->searchThemeKey($child['slug'], $key, $theme, $depthKey, $childrenKey);
 		return $this->themeReplaceEav($child, $theme, str_replace($arrKeys, $arrValues, $theme[$key]));
 	}
 

@@ -270,51 +270,80 @@ class Menu_Array extends \LbMenu\Menu
 	public function generateLink($child)
 	{
 		// Normal link
-		if (!$child['use_router']) return $child['link'];
-
+		if (!$child['use_router'])
+		{
+			$link = $child['link'];
+		} 
 		// Use router
-		$params = $child['named_params'];
-		$link = \Router::get($child['link'], $params);
-		return $link;		
+		else
+		{
+			$params = $child['named_params'];
+			$link = \Router::get($child['link'], $params);
+		}
+
+		$link = (substr($link, 0, 1) != '/') ? '/'.$link : $link;
+		return $link;	
 	}
 
 	/**
-	 * Set if the menu/link is active
+	 * Output if the menu/link is active
 	 * @param  array  $child 
 	 * @return boolean      
 	 */
 	public function isActive($child)
 	{
-		$link = str_replace(\Uri::base(), '', $this->generateLink($child));
-
-		if (!empty($link) && ('/'.\Uri::string() == $link || \Uri::string() == $link)) return \Config::get('menu.output.active') ? : 'active';
-
-		return $this->hasActive($child);
+		return ($this->checkActive($child)) ? (\Config::get('menu.output.active') ? : 'active') : $this->hasActive($child);
 	}
 
 	/**
-	 * Check if the menu has a active link in children
+	 * Output if the menu has a active link in children
 	 * @param  array  $child 
 	 * @return boolean        
 	 */
 	public function hasActive($child)
 	{
-		$has_active = '';
 		foreach((array)$child['children'] as $childTmp)
 		{
-			$link = str_replace(\Uri::base(), '', $this->generateLink($childTmp));
-			if (!empty($link) && ('/'.\Uri::string() == $link || \Uri::string() == $link))
-			{
+			if ($this->checkActive($childTmp))
 				return \Config::get('menu.output.has_active') ? : 'has_active';
-			}
-			else
-			{
-				$has_active = $this->hasActive($childTmp);
-				if (!empty($has_active)) return $has_active;
-			}
 		}
 
-		return $has_active;
+		return '';
 	}
 
+
+	/**
+	 * Check if the menu/link is active
+	 * @param  array $child 
+	 * @return boolean       
+	 */
+	public function checkActive($child)
+	{
+		$link = str_replace(\Uri::base(), '', $this->generateLink($child));
+		if (!empty($link)) 
+		{
+			$uriArr = explode('/', \Uri::string());
+
+			// Explore the uri segments
+			do {
+				$uri = '/'.implode('/', $uriArr);
+
+				// If it's the correct uri => output active
+				if ($uri == $link)
+					return true;
+
+				// Else search if the uri is in the menu
+				$searchArr = explode('.', \Arr::search($this->dump_tree, $uri));
+				// If it's, the menu is not active
+				if(array_pop($searchArr) == 'link')
+				{
+					return false;
+				}
+
+				array_pop($uriArr);
+			} while(!empty($uriArr));
+		}
+
+		return false; 
+	}
 }

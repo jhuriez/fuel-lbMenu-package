@@ -315,7 +315,7 @@ class Menu_Db extends \LbMenu\Menu
 	{
 		$link = str_replace(\Uri::base(), '', $this->generateLink($child));
 
-		if (!empty($link) && ('/'.\Uri::string() == $link || \Uri::string() == $link)) return 'active';
+		if (!empty($link) && ('/'.\Uri::string() == $link || \Uri::string() == $link)) return \Config::get('menu.output.active') ? : 'active';
 
 		return $this->hasActive($child);
 	}
@@ -333,7 +333,7 @@ class Menu_Db extends \LbMenu\Menu
 			$link = str_replace(\Uri::base(), '', $this->generateLink($childTmp));
 			if (!empty($link) && ('/'.\Uri::string() == $link || \Uri::string() == $link))
 			{
-				return 'has_active';
+				return \Config::get('menu.output.has_active') ? : 'has_active';
 			}
 			else
 			{

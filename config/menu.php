@@ -1,6 +1,11 @@
 <?php
 
 return array(
+	'output' => array(
+		'active' => 'active',
+		'has_active' => 'has_active',
+	),
+
 	'theme_default' => 'default',
 	'theme_fallback' => 'default',
 	'themes' => array(

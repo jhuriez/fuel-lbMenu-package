@@ -60,10 +60,10 @@ class Menu_Db extends \LbMenu\Menu
 	 * @param  boolean $main  
 	 * @return string         
 	 */
-	public function buildMenu($menu, $theme, $main = true)
+	public function buildMenu($menu, $theme, $main = true, $depth = 0)
 	{
+		$depth++;
 		$output = "";
-
 		if (!empty($menu['children']))
 		{
 			$children = $menu['children'];
@@ -72,16 +72,16 @@ class Menu_Db extends \LbMenu\Menu
 
                 // Construct Text
                 $menuLang = \LbMenu\Helper_Menu::getLang($child);
-                $content = $this->themeReplaceInnerItem($child, $menuLang, $theme);
+                $content = $this->themeReplaceInnerItem($child, $menuLang, $theme, $depth);
 
                 // Construct Item
-            	$item = $this->themeReplaceItem($child, $menuLang, $theme, $content);
+            	$item = $this->themeReplaceItem($child, $menuLang, $theme, $content, $depth);
 
                 // If contains submenu
-                $submenu = (!empty($child['children'])) ? $this->buildMenu($child, $theme, false) : '';
+                $submenu = (!empty($child['children'])) ? $this->buildMenu($child, $theme, false, $depth) : '';
 
                 // Construct Submenu
-            	$output .= $this->themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu);
+            	$output .= $this->themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu, $depth);
 			}
 		}
         else
@@ -90,7 +90,7 @@ class Menu_Db extends \LbMenu\Menu
         }
 
         // Show the menu
-		return $this->themeReplaceMenu($child, $menuLang, $theme, $output);
+		return $this->themeReplaceMenu($child, $menuLang, $theme, $output, $depth);
 	}
 
 	/**
@@ -101,10 +101,8 @@ class Menu_Db extends \LbMenu\Menu
 	 * @param  string $output   
 	 * @return string           
 	 */
-	public function themeReplaceMenu($child, $menuLang, $theme, $output)
+	public function themeReplaceMenu($child, $menuLang, $theme, $output, $depth)
 	{
-		$depth = isset($child['path']) ? count(explode('/', $child['path']))-1 : 0;
-		
 		$arrKeys = array(
 			'{menu}',
 			'{depth}',
@@ -128,10 +126,8 @@ class Menu_Db extends \LbMenu\Menu
 	 * @param  string $submenu  
 	 * @return string           
 	 */
-	public function themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu)
+	public function themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu, $depth)
 	{
-		$depth = isset($child['path']) ? count(explode('/', $child['path']))-1 : 0;
-
 		$arrKeys = array(
 			'{submenu}',
 			'{depth}',
@@ -151,7 +147,7 @@ class Menu_Db extends \LbMenu\Menu
 	 * @param  array $theme    
 	 * @return string           
 	 */
-	public function themeReplaceInnerItem($child, $menuLang, $theme)
+	public function themeReplaceInnerItem($child, $menuLang, $theme, $depth)
 	{
 		if (empty($menuLang['text'])) return '';
 
@@ -187,10 +183,8 @@ class Menu_Db extends \LbMenu\Menu
 	 * @param  string $content  
 	 * @return string           
 	 */
-	public function themeReplaceItem($child, $menuLang, $theme, $content)
+	public function themeReplaceItem($child, $menuLang, $theme, $content, $depth)
 	{
-		$depth = isset($child['path']) ? count(explode('/', $child['path']))-1 : 0;
-
 		$arrKeys = array(
 			'{item}',
 			'{link}', 
@@ -344,4 +338,5 @@ class Menu_Db extends \LbMenu\Menu
 
 		return $has_active;
 	}
+
 }

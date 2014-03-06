@@ -103,7 +103,8 @@ class Menu_Db extends \LbMenu\Menu
 	 */
 	public function themeReplaceMenu($child, $menuLang, $theme, $output)
 	{
-		$depth = count(explode('/', $child['path']))-1;
+		$depth = isset($child['path']) ? count(explode('/', $child['path']))-1 : 0;
+		
 		$arrKeys = array(
 			'{menu}',
 			'{depth}',
@@ -129,7 +130,7 @@ class Menu_Db extends \LbMenu\Menu
 	 */
 	public function themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu)
 	{
-		$depth = count(explode('/', $child['path']))-1;
+		$depth = isset($child['path']) ? count(explode('/', $child['path']))-1 : 0;
 
 		$arrKeys = array(
 			'{submenu}',
@@ -154,7 +155,7 @@ class Menu_Db extends \LbMenu\Menu
 	{
 		if (empty($menuLang['text'])) return '';
 
-		$depth = count(explode('/', $child['path']))-1;
+		$depth = isset($child['path']) ? count(explode('/', $child['path']))-1 : 0;
 
 		$arrKeys = array(
 			'{link}', 
@@ -188,7 +189,7 @@ class Menu_Db extends \LbMenu\Menu
 	 */
 	public function themeReplaceItem($child, $menuLang, $theme, $content)
 	{
-		$depth = count(explode('/', $child['path']))-1;
+		$depth = isset($child['path']) ? count(explode('/', $child['path']))-1 : 0;
 
 		$arrKeys = array(
 			'{item}',

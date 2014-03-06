@@ -9,7 +9,7 @@ class Menu_Db extends \LbMenu\Menu
 	 * @param  mixed $menu 
 	 * @return Menu       
 	 */
-	protected function load($menu = null)
+	protected function load($menu = null, $strict = false)
 	{
 		$menu = $menu ? : $this->menu;
 
@@ -24,7 +24,11 @@ class Menu_Db extends \LbMenu\Menu
 
 		if ($menu === null)
 		{
-			throw new \Exception('Menu '.$menu.' not found');
+			if ($strict)
+			{
+				throw new \Exception('Menu '.$menu.' not found');
+			} 
+			return false;
 		}
 
 		return $menu;
@@ -36,6 +40,8 @@ class Menu_Db extends \LbMenu\Menu
      */
     public function dump()
     {
+    	if ($this->menu === false) return array();
+
         $menuArr = current($this->menu->dump_tree());
         $menuArr = \LbMenu\Helper_Menu::recursiveGetLang($menuArr);
         return $menuArr;
@@ -48,6 +54,8 @@ class Menu_Db extends \LbMenu\Menu
 	 */
 	public function render($theme = null)
 	{
+		if ($this->menu === false) return '';
+
 		$theme = \LbMenu\Helper_Menu::getTheme($this->menu);
 		$this->dump_tree = current($this->menu->dump_tree());
         $html = $this->buildMenu($this->dump_tree, $theme);

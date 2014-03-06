@@ -9,7 +9,7 @@ class Menu_Array extends \LbMenu\Menu
 	 * @param  string $menu 
 	 * @return array      
 	 */
-	protected function load($menu = null)
+	protected function load($menu = null, $strict = false)
 	{
 		\Config::load('menu', true);
 		$menu = $menu ? : $this->menu;
@@ -17,7 +17,11 @@ class Menu_Array extends \LbMenu\Menu
 
 		if ($menu === null)
 		{
-			throw new \Exception('Menu '.$menu.' not found');
+			if ($strict)
+			{
+				throw new \Exception('Menu '.$menu.' not found');
+			}
+			return false;
 		}
 
 		return $menu;
@@ -30,6 +34,8 @@ class Menu_Array extends \LbMenu\Menu
 	 */
 	public function render($theme = null)
 	{
+		if ($this->menu === false) return '';
+
 		$theme = \LbMenu\Helper_Array::getTheme($this->menu);
         $html = $this->buildMenu($this->menu, $theme);
         echo $html;

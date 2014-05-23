@@ -52,25 +52,27 @@ class Menu_Array extends \LbMenu\Menu
 	{
 		$output = "";
 
-		if (!empty($menu['children']))
+		if (!empty($menu['children']) && (empty($menu['perm']) || (class_exists('Auth') && \Auth::has_access($menu['perm']))))
 		{
 			$children = $menu['children'];
 			foreach($children as $child)
 			{
+				if (empty($child['perm']) || (class_exists('Auth') && \Auth::has_access($child['perm'])))
+				{
+	                // Construct Text
+	                $menuLang = \LbMenu\Helper_Array::getLang($child);
 
-                // Construct Text
-                $menuLang = \LbMenu\Helper_Array::getLang($child);
+	                $content = $this->themeReplaceInnerItem($child, $menuLang, $theme);
 
-                $content = $this->themeReplaceInnerItem($child, $menuLang, $theme);
+	                // Construct Item
+	            	$item = $this->themeReplaceItem($child, $menuLang, $theme, $content);
 
-                // Construct Item
-            	$item = $this->themeReplaceItem($child, $menuLang, $theme, $content);
+	                // If contains submenu
+	                $submenu = (!empty($child['children'])) ? $this->buildMenu($child, $theme, false) : '';
 
-                // If contains submenu
-                $submenu = (!empty($child['children'])) ? $this->buildMenu($child, $theme, false) : '';
-
-                // Construct Submenu
-            	$output .= $this->themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu);
+	                // Construct Submenu
+	            	$output .= $this->themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu);
+	            }
 			}
 		}
         else
@@ -339,7 +341,7 @@ class Menu_Array extends \LbMenu\Menu
 					return true;
 
 				// Else search if the uri is in the menu
-				$searchArr = explode('.', \Arr::search($this->dump_tree, $uri));
+				$searchArr = explode('.', \Arr::search($child, $uri));
 				// If it's, the menu is not active
 				if(array_pop($searchArr) == 'link')
 				{

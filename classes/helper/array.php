@@ -188,6 +188,7 @@ class Helper_Array
 
         (!isset($menu['is_blank'])) and $menu['is_blank'] = false;
         (!isset($menu['use_router'])) and $menu['use_router'] = false;
+        (!isset($menu['perm'])) and $menu['perm'] = '';
         (!isset($menu['link'])) and $menu['link'] = '#';
         (!isset($menu['eav'])) and $menu['eav'] = array();
         (!isset($menu['named_params'])) and $menu['named_params'] = array();

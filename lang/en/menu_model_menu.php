@@ -1,14 +1,14 @@
 <?php
 
 return array(
-	'slug' => 'Slug',
-	'link' => 'Link',
-	'is_blank' => 'Blank',
-	'route_name' => 'Route Name',
-	'use_router' => 'Use the Router',
+	'slug'         => 'Slug',
+	'link'         => 'Link',
+	'is_blank'     => 'Blank',
+	'route_name'   => 'Route Name',
+	'perm'         => 'Permission',
+	'use_router'   => 'Use the Router',
 	'named_params' => 'Route parameters',
-	'theme' => 'Theme',
-	'no' => 'No',
-	'yes' => 'Yes',
-
+	'theme'        => 'Theme',
+	'no'           => 'No',
+	'yes'          => 'Yes',
 );

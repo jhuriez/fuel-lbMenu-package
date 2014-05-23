@@ -220,29 +220,31 @@ class Helper_Menu
         {
             // Set default value
             $data = array_merge($data, array(
-                'slug' => isset($data['slug']) ? $data['slug'] : $data['text'],
-                'link' => (isset($data['link'])) ? $data['link'] : '#',
-                'is_blank' => (isset($data['is_blank'])) ? $data['is_blank'] : false,
-                'theme' => (isset($data['theme'])) ? $data['theme'] : \Config::get('menu.theme_default'),
-                'use_router' => (isset($data['use_router'])) ? $data['use_router'] : false,
-                'named_params' => (isset($data['named_params'])) ? $data['named_params'] : array(),
-                'title' => isset($data['title']) ? $data['title'] : '',
-                'small_desc' => isset($data['small_desc']) ? $data['small_desc'] : '',
+                'slug'         => isset($data['slug']) ? $data['slug'] : $data['text'],
+                'link'         => isset($data['link']) ? $data['link'] : '#',
+                'is_blank'     => isset($data['is_blank']) ? $data['is_blank'] : false,
+                'theme'        => isset($data['theme']) ? $data['theme'] : \Config::get('menu.theme_default'),
+                'perm'         => isset($data['perm']) ? $data['perm'] : '',
+                'use_router'   => isset($data['use_router']) ? $data['use_router'] : false,
+                'named_params' => isset($data['named_params']) ? $data['named_params'] : array(),
+                'title'        => isset($data['title']) ? $data['title'] : '',
+                'small_desc'   => isset($data['small_desc']) ? $data['small_desc'] : '',
             ));
         }
         else
         {
             // Set Menu value
             $data = array_merge($data, array(
-                'slug' => isset($data['slug']) ? $data['slug'] : $menu->slug,
-                'link' => (isset($data['link'])) ? $data['link'] : $menu->link,
-                'is_blank' => (isset($data['is_blank'])) ? $data['is_blank'] : $menu->is_blank,
-                'theme' => (isset($data['theme'])) ? $data['theme'] : $menu->theme,
-                'use_router' => (isset($data['use_router'])) ? $data['use_router'] : $menu->use_router,
-                'named_params' => (isset($data['named_params']) && is_array($data['named_params'])) ? $data['named_params'] : $menu->named_params,
-                'text' => isset($data['text']) ? $data['text'] : $menuLang->text,
-                'title' => isset($data['title']) ? $data['title'] : $menuLang->title,
-                'small_desc' => isset($data['small_desc']) ? $data['small_desc'] : $menuLang->small_desc,
+                'slug'         => isset($data['slug']) ? $data['slug'] : $menu->slug,
+                'link'         => isset($data['link']) ? $data['link'] : $menu->link,
+                'is_blank'     => isset($data['is_blank']) ? $data['is_blank'] : $menu->is_blank,
+                'theme'        => isset($data['theme']) ? $data['theme'] : $menu->theme,
+                'perm'         => isset($data['perm']) ? $data['perm'] : $menu->perm,
+                'use_router'   => isset($data['use_router']) ? $data['use_router'] : $menu->use_router,
+                'named_params' => isset($data['named_params']) && is_array($data['named_params']) ? $data['named_params'] : $menu->named_params,
+                'text'         => isset($data['text']) ? $data['text'] : $menuLang->text,
+                'title'        => isset($data['title']) ? $data['title'] : $menuLang->title,
+                'small_desc'   => isset($data['small_desc']) ? $data['small_desc'] : $menuLang->small_desc,
             )); 
         }
 
@@ -252,6 +254,7 @@ class Helper_Menu
             'link'         => $data['link'],
             'is_blank'     => $data['is_blank'],
             'theme'        => $data['theme'],
+            'perm'         => $data['perm'],
             'use_router'   => $data['use_router'],
             'named_params' => $data['named_params'],
         ));

@@ -73,30 +73,34 @@ class Menu_Db extends \LbMenu\Menu
 	{
 		$depth++;
 		$output = "";
-		if (!empty($menu['children']))
+		if (!empty($menu['children']) && (empty($menu['perm']) || (class_exists('Auth') && \Auth::has_access($menu['perm']))))
 		{
 			$children = $menu['children'];
 			foreach($children as $child)
 			{
+				if (empty($child['perm']) || (class_exists('Auth') && \Auth::has_access($child['perm'])))
+				{
+	                // Construct Text
+	                $menuLang = \LbMenu\Helper_Menu::getLang($child);
+	                $content = $this->themeReplaceInnerItem($child, $menuLang, $theme, $depth);
 
-                // Construct Text
-                $menuLang = \LbMenu\Helper_Menu::getLang($child);
-                $content = $this->themeReplaceInnerItem($child, $menuLang, $theme, $depth);
+	                // Construct Item
+	            	$item = $this->themeReplaceItem($child, $menuLang, $theme, $content, $depth);
 
-                // Construct Item
-            	$item = $this->themeReplaceItem($child, $menuLang, $theme, $content, $depth);
+	                // If contains submenu
+	                $submenu = (!empty($child['children'])) ? $this->buildMenu($child, $theme, false, $depth) : '';
 
-                // If contains submenu
-                $submenu = (!empty($child['children'])) ? $this->buildMenu($child, $theme, false, $depth) : '';
-
-                // Construct Submenu
-            	$output .= $this->themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu, $depth);
+	                // Construct Submenu
+	            	$output .= $this->themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu, $depth);
+				}
 			}
 		}
         else
         {
             return '';
         }
+
+        $menuLang = \LbMenu\Helper_Menu::getLang($menu);
 
         // Show the menu
 		return $this->themeReplaceMenu($child, $menuLang, $theme, $output, $depth);

@@ -33,6 +33,10 @@ class Model_Menu extends \Orm\Model_Nestedset
         'named_params' => array(
             'label' => 'menu_model_menu.named_params',
         ),
+        'perm' => array(
+            'label' => 'menu_model_menu.perm',
+            'default' => '',
+        ),
         'is_blank' => array(
             'label' => 'menu_model_menu.is_blank',
             'null' => false,

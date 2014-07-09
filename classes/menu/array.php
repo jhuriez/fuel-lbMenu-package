@@ -32,11 +32,28 @@ class Menu_Array extends \LbMenu\Menu
 	 * @param  array $theme
 	 * @return string        
 	 */
-	public function render($theme = null)
+	public function render($theme = null, $menuFilter = null)
 	{
 		if ($this->menu === false) return '';
 
 		$theme = \LbMenu\Helper_Array::getTheme($this->menu);
+
+		$theme['menuFilter']['exclude'] = array();
+		$theme['menuFilter']['include'] = array();
+
+		// Menu filter
+		if ($menuFilter !== null)
+		{
+			foreach($menuFilter as $v)
+			{
+				if (substr($v, 0, 1) == '!')
+					$theme['menuFilter']['exclude'][] = $v;
+				else
+					$theme['menuFilter']['include'][] = $v;
+			}
+		}
+
+
         $html = $this->buildMenu($this->menu, $theme);
         echo $html;
 	}
@@ -52,12 +69,18 @@ class Menu_Array extends \LbMenu\Menu
 	{
 		$output = "";
 
-		if (!empty($menu['children']) && (empty($menu['perm']) || (class_exists('Auth') && \Auth::has_access($menu['perm']))))
+		if (!empty($menu['children']) 
+			&& (empty($menu['perm']) || (class_exists('Auth') && \Auth::has_access($menu['perm']))) // Check Auth
+			)
 		{
 			$children = $menu['children'];
 			foreach($children as $child)
 			{
-				if (empty($child['perm']) || (class_exists('Auth') && \Auth::has_access($child['perm'])))
+				if (
+					(empty($theme['menuFilter']['include']) || in_array($child['slug'], $theme['menuFilter']['include'])) // If show only menu in "include" filter
+				    && ( ! in_array('!' . $child['slug'], $theme['menuFilter']['exclude'])) // Don't show menu in "exclude" filter
+					&& (empty($child['perm']) || (class_exists('Auth') && \Auth::has_access($child['perm']))) // Check Auth
+					)
 				{
 	                // Construct Text
 	                $menuLang = \LbMenu\Helper_Array::getLang($child);

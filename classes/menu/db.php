@@ -56,8 +56,8 @@ class Menu_Db extends \LbMenu\Menu
 	{
 		if ($this->menu === false) return '';
 
-		$theme = \LbMenu\Helper_Menu::getTheme($this->menu);
-		
+		$theme = \LbMenu\Helper_Menu::getTheme($this->menu, $theme);
+
 		$theme['menuFilter']['exclude'] = array();
 		$theme['menuFilter']['include'] = array();
 
@@ -188,7 +188,7 @@ class Menu_Db extends \LbMenu\Menu
 	{
 		if (empty($menuLang['text'])) return '';
 
-		$depth = isset($child['path']) ? count(explode('/', $child['path']))-1 : 0;
+		$depth = isset($child['path']) ? count(explode('/', $child['path']))-1 : $depth;
 
 		$arrKeys = array(
 			'{link}', 
@@ -205,6 +205,7 @@ class Menu_Db extends \LbMenu\Menu
 		);
 
 		$key = ($depth >= 2) ? 'sub_menu_item_inner' : 'menu_item_inner';
+
 		$childrenKey = (!empty($child['children'])) ? '_with_children' : '';
 		$depthKey = '_depth-'.$depth;
  		$key = $this->searchThemeKey($child['slug'], $key, $theme, $depthKey, $childrenKey);

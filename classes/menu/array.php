@@ -36,7 +36,7 @@ class Menu_Array extends \LbMenu\Menu
 	{
 		if ($this->menu === false) return '';
 
-		$theme = \LbMenu\Helper_Array::getTheme($this->menu);
+		$theme = \LbMenu\Helper_Array::getTheme($this->menu, $theme);
 
 		$theme['menuFilter']['exclude'] = array();
 		$theme['menuFilter']['include'] = array();

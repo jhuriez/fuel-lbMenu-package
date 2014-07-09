@@ -143,10 +143,14 @@ class Menu_Db extends \LbMenu\Menu
 		$arrKeys = array(
 			'{menu}',
 			'{depth}',
+			'{slug}',
+			'{id}',
 		);
 		$arrValues = array(
 			$output,
 			$depth,
+			$child['slug'],
+			$child['id'],
 		);
 
 		$key = ($depth >= 2) ? 'sub_menu' : 'menu';
@@ -168,11 +172,15 @@ class Menu_Db extends \LbMenu\Menu
 		$arrKeys = array(
 			'{submenu}',
 			'{depth}',
+			'{slug}',
+			'{id}',
 		);
 
 		$arrValues = array(
 			$submenu,
 			$depth,
+			$child['slug'],
+			$child['id'],
 		);
 
 		return $this->themeReplaceEav($child, $theme, str_replace($arrKeys, $arrValues, $item));
@@ -195,6 +203,8 @@ class Menu_Db extends \LbMenu\Menu
 			'{text}', 
 			'{title}', 
 			'{depth}',
+			'{slug}',
+			'{id}',
 		);
 
 		$arrValues = array(
@@ -202,6 +212,8 @@ class Menu_Db extends \LbMenu\Menu
 			$menuLang['text'],
 			$menuLang['title'],
 			$depth,
+			$child['slug'],
+			$child['id'],
 		);
 
 		$key = ($depth >= 2) ? 'sub_menu_item_inner' : 'menu_item_inner';
@@ -229,7 +241,9 @@ class Menu_Db extends \LbMenu\Menu
 			'{text}', 
 			'{title}', 
 			'{depth}',
-			'{active}'
+			'{active}',
+			'{slug}',
+			'{id}',
 		);
 
 		$arrValues = array(
@@ -239,6 +253,8 @@ class Menu_Db extends \LbMenu\Menu
 			$menuLang['title'],
 			$depth,
 			$this->isActive($child),
+			$child['slug'],
+			$child['id']
 		);
 
 		$key = ($depth >= 2) ? 'sub_menu_item' : 'menu_item';

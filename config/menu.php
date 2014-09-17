@@ -14,11 +14,11 @@ return array(
 		'default' => array(
 	        'menu' => '<ul class="menu">{menu}</ul>',
 	        'menu_item' => '<li class="item depth-1 {active}">{item} {submenu}</li>',
-	        'menu_item_inner' => '<a href="{link}" title="{title}">{text}</a>',
+	        'menu_item_inner' => '<a href="{link}" title="{title}" {blank}>{text}</a>',
 
 	        'sub_menu' => '<ul class="sub-menu depth-{depth}">{menu}</ul>',
 	        'sub_menu_item' => '<li class="sub-item depth-{depth} {active}">{item} {submenu}</li>',
-	        'sub_menu_item_inner' => '<a href="{link}" title="{title}">{text}</a>',
+	        'sub_menu_item_inner' => '<a href="{link}" title="{title}" {blank}>{text}</a>',
 		),
 
 		// Menu navbar for Bootstrap 2
@@ -27,12 +27,12 @@ return array(
 			'menu_item' => '<li class="{active}">{item} {submenu}</li>',
 			'menu_item_with_children' => '<li class="{active} dropdown">{item} {submenu}</li>',
 
-			'menu_item_inner' => '<a href="{link}" title="{title}">{text}</a>',
-			'menu_item_inner_with_children' => '<a href="{link}" title="{title}" class="dropdown-toggle" data-toggle="dropdown">{text} <b class="caret"></b></a>',
+			'menu_item_inner' => '<a href="{link}" title="{title}" {blank}>{text}</a>',
+			'menu_item_inner_with_children' => '<a href="{link}" title="{title}" class="dropdown-toggle" data-toggle="dropdown" {blank}>{text} <b class="caret"></b></a>',
 		
 			'sub_menu' => '<ul class="dropdown-menu">{menu}</ul>',
 			'sub_menu_item' => '<li class="{active}">{item} {submenu}</li>',
-			'sub_menu_item_inner' => '<a href="{link}" title="{title}">{text}</a>',
+			'sub_menu_item_inner' => '<a href="{link}" title="{title}" {blank}>{text}</a>',
 		),
 
 		// Menu navbar for Bootstrap 3
@@ -41,12 +41,12 @@ return array(
 			'menu_item' => '<li class="{active}">{item} {submenu}</li>',
 			'menu_item_with_children' => '<li class="{active} dropdown">{item} {submenu}</li>',
 
-			'menu_item_inner' => '<a href="{link}" title="{title}">{text}</a>',
-			'menu_item_inner_with_children' => '<a href="{link}" title="{title}" class="dropdown-toggle" data-toggle="dropdown">{text} <b class="caret"></b></a>',
+			'menu_item_inner' => '<a href="{link}" title="{title}" {blank}>{text}</a>',
+			'menu_item_inner_with_children' => '<a href="{link}" title="{title}" class="dropdown-toggle" data-toggle="dropdown" {blank}>{text} <b class="caret"></b></a>',
 		
 			'sub_menu' => '<ul class="dropdown-menu">{menu}</ul>',
 			'sub_menu_item' => '<li class="{active}">{item} {submenu}</li>',
-			'sub_menu_item_inner' => '<a href="{link}" title="{title}">{text}</a>',
+			'sub_menu_item_inner' => '<a href="{link}" title="{title}" {blank}>{text}</a>',
 		),
 
 		// Menu for Sb-admin template
@@ -54,12 +54,12 @@ return array(
 	        'menu' => '<ul class="nav" id="side-menu">{menu}</ul>',
 						
 	        'menu_item' => '<li class="{active} {item_class}">{item} {submenu}</li>',
-	        'menu_item_inner' => '<a href="{link}" title="{title}"><i class="fa {b_icon} fa-fw"></i> {text}</a>',
+	        'menu_item_inner' => '<a href="{link}" title="{title}" {blank}><i class="fa {b_icon} fa-fw"></i> {text}</a>',
 	        'menu_item_inner_with_children' => '<a href="{link}" title="{title}"><i class="fa {b_icon} fa-fw"></i> {text} <span class="fa arrow"></span></a>',
 
 	        'sub_menu' => '<ul class="nav">{menu}</ul>',
 	        'sub_menu_item' => '<li class="{active}">{item} {submenu}</li>',
-	        'sub_menu_item_inner' => '<a href="{link}" title="{title}"><i class="fa {b_icon} fa-fw"></i> {text}</a>',
+	        'sub_menu_item_inner' => '<a href="{link}" title="{title}" {blank}><i class="fa {b_icon} fa-fw"></i> {text}</a>',
 	        'sub_menu_item_inner_with_children' => '<a href="{link}" title="{title}"><i class="fa {b_icon} fa-fw"></i> {text} <span class="fa arrow"></span></a>',
 
 	        'sub_menu_depth-2' => '<ul class="nav nav-second-level">{menu}</ul>',

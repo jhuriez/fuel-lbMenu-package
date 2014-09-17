@@ -180,6 +180,7 @@ class Menu_Array extends \LbMenu\Menu
 			'{title}', 
 			'{depth}',
 			'{slug}',
+			'{blank}',
 		);
 
 		$arrValues = array(
@@ -188,6 +189,7 @@ class Menu_Array extends \LbMenu\Menu
 			$menuLang['title'],
 			$depth,
 			$child['slug'],
+			$child['is_blank'] ? ' target="_blank"' : '',
 		);
 
 		$key = ($depth >= 2) ? 'sub_menu_item_inner' : 'menu_item_inner';

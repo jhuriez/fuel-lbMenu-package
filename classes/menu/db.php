@@ -205,6 +205,7 @@ class Menu_Db extends \LbMenu\Menu
 			'{depth}',
 			'{slug}',
 			'{id}',
+			'{blank}',
 		);
 
 		$arrValues = array(
@@ -214,10 +215,10 @@ class Menu_Db extends \LbMenu\Menu
 			$depth,
 			$child['slug'],
 			$child['id'],
+			$child['is_blank'] ? ' target="_blank"' : '',
 		);
 
 		$key = ($depth >= 2) ? 'sub_menu_item_inner' : 'menu_item_inner';
-
 		$childrenKey = (!empty($child['children'])) ? '_with_children' : '';
 		$depthKey = '_depth-'.$depth;
  		$key = $this->searchThemeKey($child['slug'], $key, $theme, $depthKey, $childrenKey);

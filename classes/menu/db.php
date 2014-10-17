@@ -52,7 +52,7 @@ class Menu_Db extends \LbMenu\Menu
 	 * @param  array $theme
 	 * @return string        
 	 */
-	public function render($theme = null, $menuFilter = null)
+	public function render($theme = null, $menuFilter = null, $return = false)
 	{
 		if ($this->menu === false) return '';
 
@@ -75,7 +75,11 @@ class Menu_Db extends \LbMenu\Menu
 
 		$this->dump_tree = current($this->menu->dump_tree());
         $html = $this->buildMenu($this->dump_tree, $theme);
-        echo $html;
+
+        if ($return)
+        	return $html;
+        else
+	        echo $html;
 	}
 
 	/**

@@ -32,7 +32,7 @@ class Menu_Array extends \LbMenu\Menu
 	 * @param  array $theme
 	 * @return string        
 	 */
-	public function render($theme = null, $menuFilter = null)
+	public function render($theme = null, $menuFilter = null, $return = false)
 	{
 		if ($this->menu === false) return '';
 
@@ -55,7 +55,10 @@ class Menu_Array extends \LbMenu\Menu
 
 
         $html = $this->buildMenu($this->menu, $theme);
-        echo $html;
+        if ($return)
+        	return $html;
+        else
+	        echo $html;
 	}
 
 	/**

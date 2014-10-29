@@ -107,7 +107,7 @@ class Menu_Array extends \LbMenu\Menu
         }
 
         // Show the menu
-		return $this->themeReplaceMenu($child, $menuLang, $theme, $output);
+		return $this->themeReplaceMenu($menu, $menuLang, $theme, $output);
 	}
 
 	/**

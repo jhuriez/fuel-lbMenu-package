@@ -131,7 +131,7 @@ class Menu_Db extends \LbMenu\Menu
         $menuLang = \LbMenu\Helper_Menu::getLang($menu);
 
         // Show the menu
-		return $this->themeReplaceMenu($child, $menuLang, $theme, $output, $depth);
+		return $this->themeReplaceMenu($menu, $menuLang, $theme, $output, $depth);
 	}
 
 	/**

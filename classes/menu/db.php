@@ -354,7 +354,7 @@ class Menu_Db extends \LbMenu\Menu
 		if (!$child['use_router'])
 		{
 			$link = $child['link'];
-			$link = (substr($link, 0, 1) != '/') ? '/'.$link : $link;
+			$link = \LbMenu\Helper_Tool::url($link);
 		} 
 		// Use router
 		else

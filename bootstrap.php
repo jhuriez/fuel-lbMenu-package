@@ -16,6 +16,7 @@ Autoloader::add_classes(array(
     'LbMenu\\Menu' => __DIR__ . '/classes/menu.php',
     'LbMenu\\Menu_Db' => __DIR__ . '/classes/menu/db.php',
     'LbMenu\\Menu_Array' => __DIR__ . '/classes/menu/array.php',
+    'LbMenu\\Helper_Tool' => __DIR__ . '/classes/helper/tool.php',
     'LbMenu\\Helper_Menu' => __DIR__ . '/classes/helper/menu.php',
     'LbMenu\\Helper_Array' => __DIR__ . '/classes/helper/array.php',
     'LbMenu\\Model_Menu' => __DIR__ . '/classes/model/menu.php',

@@ -317,6 +317,7 @@ class Menu_Array extends \LbMenu\Menu
 		if (!$child['use_router'])
 		{
 			$link = $child['link'];
+			$link = \LbMenu\Helper_Tool::url($link);
 		} 
 		// Use router
 		else
@@ -325,7 +326,6 @@ class Menu_Array extends \LbMenu\Menu
 			$link = \Router::get($child['link'], $params);
 		}
 
-		$link = (substr($link, 0, 1) != '/') ? '/'.$link : $link;
 		return $link;	
 	}
 

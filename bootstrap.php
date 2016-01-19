@@ -10,7 +10,8 @@
  * @copyright  2013 Julien Huriez
  * @link   https://github.com/jhuriez/fuel-lbMenu-package
  */
-Autoloader::add_core_namespace('LbMenu');
+
+Autoloader::add_namespace('LbMenu', __DIR__);
 
 Autoloader::add_classes(array(
     'LbMenu\\Menu' => __DIR__ . '/classes/menu.php',

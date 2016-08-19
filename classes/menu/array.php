@@ -55,6 +55,9 @@ class Menu_Array extends \LbMenu\Menu
 
 
         $html = $this->buildMenu($this->menu, $theme);
+
+		$html = str_replace('||HASNOCHILD||', '', $html);
+
         if ($return)
         	return $html;
         else
@@ -77,6 +80,9 @@ class Menu_Array extends \LbMenu\Menu
 			)
 		{
 			$children = $menu['children'];
+
+			$oldOutput = $output;
+
 			foreach($children as $child)
 			{
 				if (
@@ -97,9 +103,22 @@ class Menu_Array extends \LbMenu\Menu
 	                $submenu = (!empty($child['children'])) ? $this->buildMenu($child, $theme, false) : '';
 
 	                // Construct Submenu
+	                $oldOutput = $output;
 	            	$output .= $this->themeReplaceSubmenu($child, $menuLang, $theme, $item, $submenu);
+
+	            	if (strstr($output, '||HASNOCHILD||'))
+	            	{
+	            		$output = $oldOutput;
+	            	}
+
 	            }
 			}
+
+			if ($oldOutput == $output)
+			{
+				$output .= '||HASNOCHILD||';
+			}
+
 		}
         else
         {

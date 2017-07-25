@@ -21,7 +21,7 @@ class Menu
 	{
 		if ($exists = static::instance($name))
 		{
-			\Error::notice('Menu with this name exists already, cannot be overwritten.');
+			// \Error::notice('Menu with this name exists already, cannot be overwritten.');
 			return $exists;
 		}
 

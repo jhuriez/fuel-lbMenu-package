@@ -20,7 +20,7 @@ class Helper_Tool
 	        // Si c'est une URL interne
 	        if ( ! $isUrl)
 	        {
-		        $uri = \Uri::base() . $uri;
+		        $uri = \Uri::create($uri);
 	        }
 
 	        // Si il manque le protocol
